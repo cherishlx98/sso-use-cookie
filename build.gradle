@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    //定义一个变量
+    ext {
+        springBootVersion = '2.1.3.RELEASE'
+    }
+    //导入springboot gradle的插件
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+}
+
+//指定子模块
+subprojects {
+    group 'com.sso'
+    version '1.0-SNAPSHOT'
+    //子模块都是Java工程，导入Java插件
+    apply plugin: 'java'
+    //子模块都是Spring工程，导入spring插件
+    apply plugin: 'io.spring.dependency-management'
+    //再导入Springboot的插件
+    apply plugin: 'org.springframework.boot'
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    //导入各个子模块的依赖
+    dependencies {
+        compile 'org.springframework.boot:spring-boot-starter-web'
+        annotationProcessor 'org.projectlombok:lombok:1.18.2'
+        compileOnly 'org.projectlombok:lombok:1.18.2'
+        //这个是写页面的依赖-thymeleaf
+        compile "org.springframework.boot:spring-boot-starter-thymeleaf"
+    }
+}
+
+
+
